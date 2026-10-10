@@ -1,4 +1,4 @@
-const CACHE_NAME = 'veste-shell-v05';
+const CACHE_NAME = 'veste-shell-v06';
 const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
