@@ -1,0 +1,19 @@
+{
+  "name": "Veste — Guarda-roupa inteligente",
+  "short_name": "Veste",
+  "description": "Organize suas roupas, monte looks e planeje a semana.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f5f1",
+  "theme_color": "#171717",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

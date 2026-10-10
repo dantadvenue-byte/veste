@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#171717">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Veste — Seu guarda-roupa inteligente</title>
+<style>
+:root{--bg:#f7f5f1;--card:#fff;--ink:#191919;--muted:#77736d;--line:#e8e3db;--accent:#b8f36b;--dark:#171717;--radius:20px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select{font:inherit}button{cursor:pointer;border:0}.app{max-width:480px;min-height:100dvh;margin:0 auto;background:var(--bg);position:relative;padding-bottom:92px}
+header{padding:24px 20px 16px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:900;letter-spacing:-1px;font-size:24px}.logo span{color:#719d39}.avatar{width:38px;height:38px;border-radius:50%;background:#e7e1d7;display:grid;place-items:center;font-weight:800}
+main{padding:0 18px}.eyebrow{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:800}
+h1{font-size:30px;line-height:1.05;letter-spacing:-1.2px;margin:7px 0 8px}h2{font-size:21px;letter-spacing:-.5px;margin:0 0 14px}p{color:var(--muted);font-size:13px;line-height:1.5;margin:0}
+.hero{background:var(--dark);color:#fff;border-radius:26px;padding:21px;position:relative;overflow:hidden;margin:16px 0 25px;min-height:174px}
+.hero:after{content:"";position:absolute;width:150px;height:150px;border:1px solid #ffffff22;border-radius:50%;right:-42px;top:14px;box-shadow:0 0 0 22px #ffffff08,0 0 0 44px #ffffff06}
+.hero .eyebrow{color:#b7f36b}.hero h2{font-size:24px;max-width:230px;margin:9px 0 8px;position:relative;z-index:1}.hero p{color:#c8c8c8;max-width:230px;position:relative;z-index:1}.hero button{margin-top:17px;background:var(--accent);color:#171717;padding:12px 15px;border-radius:13px;font-weight:800;font-size:12px;position:relative;z-index:1}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin:23px 0 12px}.text-button{background:none;color:#5c7f2f;font-size:12px;font-weight:800;padding:8px 0}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin:13px 0 18px}.day{border:1px solid var(--line);border-radius:14px;background:#fff;padding:9px 0;text-align:center;color:var(--muted)}.day strong{display:block;font-size:12px;color:var(--ink);margin-bottom:6px}.day span{display:block;width:5px;height:5px;background:transparent;border-radius:50%;margin:0 auto}.day.active{background:var(--dark);color:#fff;border-color:var(--dark)}.day.active strong{color:#fff}.day.has span{background:#86b64a}
+.look-card{display:flex;gap:14px;padding:12px;border:1px solid var(--line);background:#fff;border-radius:18px;margin-bottom:10px;align-items:center}.look-preview{width:82px;height:94px;border-radius:13px;background:#efede7;display:grid;place-items:center;font-size:34px;flex-shrink:0}.look-info{flex:1;min-width:0}.look-info strong{display:block;font-size:14px;margin-bottom:5px}.look-info p{font-size:12px}.pill{display:inline-block;margin-top:8px;background:#f0f5e8;color:#577b2e;border-radius:99px;padding:5px 8px;font-size:10px;font-weight:800}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}.stat{padding:15px;border-radius:17px;background:#fff;border:1px solid var(--line)}.stat strong{font-size:25px;display:block;letter-spacing:-1px}.stat span{font-size:11px;color:var(--muted)}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);z-index:10}.nav button{background:none;color:#96918a;font-size:10px;display:flex;flex-direction:column;gap:5px;align-items:center;padding:5px 0;font-weight:700}.nav button b{font-size:20px;font-weight:500;line-height:1}.nav button.active{color:#191919}.nav button.active b{color:#6f963b}
+.page{display:none}.page.active{display:block}.topline{display:flex;align-items:center;justify-content:space-between;margin:8px 0 16px}.primary{background:var(--dark);color:#fff;padding:13px 16px;border-radius:13px;font-weight:800;font-size:12px}.secondary{background:#ece8e0;color:var(--ink);padding:12px 14px;border-radius:13px;font-weight:800;font-size:12px}
+.filters{display:flex;gap:7px;overflow:auto;padding-bottom:8px;margin-bottom:10px}.filter{white-space:nowrap;background:#fff;border:1px solid var(--line);border-radius:99px;padding:8px 12px;font-size:11px;color:var(--muted)}.filter.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.item{background:#fff;border:1px solid var(--line);border-radius:17px;padding:10px;min-width:0}.item-visual{height:125px;border-radius:12px;background:#f1eee8;display:grid;place-items:center;font-size:48px;position:relative}.item-visual .status{position:absolute;top:7px;left:7px;background:#fff;border-radius:99px;padding:5px 7px;font-size:9px;font-weight:800}.item strong{font-size:12px;display:block;margin:9px 0 3px}.item small{font-size:10px;color:var(--muted)}.item .item-actions{display:flex;gap:6px;margin-top:9px}.item-actions button{flex:1;padding:8px 4px;border-radius:9px;font-size:10px;font-weight:800;background:#f1eee8}.empty{border:1px dashed #d7d0c5;border-radius:18px;padding:24px 18px;text-align:center;color:var(--muted);grid-column:1/-1}.empty .emoji{font-size:32px;margin-bottom:8px}.empty strong{display:block;color:var(--ink);margin-bottom:6px}
+.form-row{margin-bottom:13px}.form-row label{font-size:11px;font-weight:800;display:block;margin-bottom:7px}.form-row input,.form-row select{width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);outline:none}.form-row input:focus,.form-row select:focus{border-color:#7ea74a}.modal-backdrop{position:fixed;inset:0;background:#0008;z-index:20;display:none;align-items:flex-end;justify-content:center}.modal-backdrop.show{display:flex}.modal{background:var(--bg);border-radius:25px 25px 0 0;width:min(480px,100%);padding:23px 20px calc(25px + env(safe-area-inset-bottom));max-height:88dvh;overflow:auto}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.close{background:#e9e4dc;border-radius:50%;width:32px;height:32px;font-size:19px}.modal-actions{display:flex;gap:8px;margin-top:18px}.modal-actions button{flex:1}
+.builder-layout{display:grid;grid-template-columns:1fr 1fr;gap:9px}.slot{background:#fff;border:1px dashed #d8d0c5;border-radius:15px;min-height:104px;padding:12px;text-align:center}.slot .big{font-size:30px;display:block;margin:4px}.slot span{font-size:10px;color:var(--muted)}.slot strong{display:block;font-size:11px;margin-top:5px}.slot select{width:100%;margin-top:7px;border:1px solid var(--line);border-radius:8px;padding:7px;background:#f9f8f5;font-size:10px}.week-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line)}.week-row strong{font-size:13px}.week-row small{display:block;color:var(--muted);margin-top:4px;font-size:11px}.week-row button{background:#eae6de;border-radius:10px;padding:9px 11px;font-size:11px;font-weight:800}
+.notice{font-size:11px;background:#f0f5e8;color:#587a31;padding:11px 12px;border-radius:12px;line-height:1.5;margin:12px 0}
+
+.item-photo{width:100%;height:100%;object-fit:cover;border-radius:12px;position:absolute;inset:0}
+.item-visual{position:relative;overflow:hidden}
+.item-visual .status{z-index:2}
+.search-box{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:13px;background:#fff;margin:0 0 12px;outline:none;font-size:13px}.search-box:focus{border-color:#7ea74a}.wardrobe-summary{display:flex;gap:8px;margin:0 0 12px}.wardrobe-summary div{flex:1;background:#fff;border:1px solid var(--line);border-radius:13px;padding:10px 12px}.wardrobe-summary strong{display:block;font-size:15px}.wardrobe-summary span{font-size:10px;color:var(--muted)}.install-bar{display:none;margin:0 0 14px;padding:12px;background:#fff;border:1px solid var(--line);border-radius:14px;align-items:center;justify-content:space-between;gap:10px}.install-bar.show{display:flex}.install-bar p{font-size:11px}.install-bar button{white-space:nowrap;background:var(--accent);padding:9px 11px;border-radius:10px;font-weight:800;font-size:11px}.photo-preview{display:none;width:100%;max-height:190px;object-fit:contain;background:#f1eee8;border-radius:12px;margin-top:8px}
+.photo-button{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border:1px dashed #c9c1b5;border-radius:12px;background:#fff;color:#57534e;font-size:12px;font-weight:800}
+.photo-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.builder-preview{grid-column:1/-1;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:5px}
+.builder-preview h2{font-size:15px;margin-bottom:12px}
+.preview-pieces{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.preview-piece{min-width:0;text-align:center}
+.preview-piece .preview-image{height:86px;background:#f1eee8;border-radius:11px;display:grid;place-items:center;overflow:hidden;font-size:28px}
+.preview-piece img{width:100%;height:100%;object-fit:cover}
+.preview-piece small{display:block;font-size:9px;color:var(--muted);margin-top:6px;overflow-wrap:anywhere}
+.look-preview{overflow:hidden;position:relative}
+.look-preview img{width:100%;height:100%;object-fit:cover}
+.look-preview .mini-emojis{font-size:23px;text-align:center;line-height:1.45}
+
+@media(min-width:500px){body{padding:20px 0}.app{border-radius:28px;overflow:hidden;box-shadow:0 12px 60px #0001;min-height:calc(100dvh - 40px)}.nav{bottom:20px;border-radius:0 0 28px 28px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="logo">veste<span>.</span></div><button class="avatar" aria-label="Conta e sincronização" onclick="openCloudModal()">☁</button></header>
+<main>
+<div class="install-bar" id="installBar"><p><strong>Tenha o Veste na tela inicial</strong><br>Abra como um aplicativo no celular.</p><button onclick="installApp()">Instalar</button></div>
+<section class="page active" id="home">
+<div class="eyebrow" id="todayLabel">SEU ESTILO, ORGANIZADO</div><h1>Vista-se bem.<br>Sem perder tempo.</h1><p>Seu guarda-roupa, seus looks e sua semana em um só lugar.</p>
+<div class="hero"><div class="eyebrow">SEU PRÓXIMO PASSO</div><h2>Planeje seus looks da semana.</h2><p>Monte combinações com o que você já tem e teste futuras compras.</p><button onclick="go('builder')">＋ Montar um look</button></div>
+<div class="section-head"><h2>Esta semana</h2><button class="text-button" onclick="go('week')">Ver calendário ↗</button></div>
+<div class="days" id="homeDays"></div>
+<div id="homeLook"></div>
+<div class="stats"><div class="stat"><strong id="statOwned">0</strong><span>Peças no guarda-roupa</span></div><div class="stat"><strong id="statWishlist">0</strong><span>Peças na lista de compras</span></div></div>
+</section>
+<section class="page" id="wardrobe">
+<div class="topline"><div><div class="eyebrow">SUAS PEÇAS</div><h1>Guarda-roupa</h1></div><button class="primary" onclick="openItemModal()">＋ Adicionar</button></div>
+<input class="search-box" id="wardrobeSearch" type="search" placeholder="Buscar por peça, cor ou categoria..." aria-label="Buscar roupas">
+<div class="wardrobe-summary"><div><strong id="wardrobeCount">0</strong><span>Peças cadastradas</span></div><div><strong id="wardrobeValue">R$ 0</strong><span>Valor informado das peças</span></div></div>
+<div class="filters" id="wardrobeFilters"></div>
+<div style="display:flex;gap:8px;margin:2px 0 14px"><button class="secondary" style="flex:1" onclick="exportBackup()">↓ Exportar backup</button><button class="secondary" style="flex:1" onclick="document.getElementById('backupInput').click()">↑ Importar backup</button><input id="backupInput" type="file" accept="application/json,.json" style="display:none" onchange="importBackup(event)"></div>
+<div class="grid" id="wardrobeGrid"></div>
+</section>
+<section class="page" id="builder">
+<div class="eyebrow">COMBINE DO SEU JEITO</div><h1>Montar look</h1><p>Escolha as peças para criar sua combinação.</p>
+<div class="notice">Dica: você pode incluir itens que ainda deseja comprar para planejar looks futuros.</div>
+<div class="builder-layout" id="builderSlots"></div>
+<div class="form-row" style="margin-top:16px"><label for="lookName">Nome do look</label><input id="lookName" placeholder="Ex.: Trabalho casual"></div>
+<div class="form-row"><label for="lookOccasion">Ocasião</label><select id="lookOccasion"><option>Trabalho</option><option>Academia</option><option>Casual</option><option>Encontro</option><option>Festa</option><option>Viagem</option></select></div>
+<div class="form-row"><label for="lookDay">Dia da semana</label><select id="lookDay"><option>Segunda</option><option>Terça</option><option>Quarta</option><option>Quinta</option><option>Sexta</option><option>Sábado</option><option>Domingo</option></select></div>
+<button class="primary" style="width:100%;margin:4px 0 24px" onclick="saveLook()">Salvar look</button>
+</section>
+<section class="page" id="week">
+<div class="eyebrow">ORGANIZAÇÃO SEMANAL</div><h1>Minha semana</h1><p>Planeje uma vez e comece cada dia sabendo o que vestir.</p>
+<div class="days" id="weekDays"></div><div id="weekList"></div>
+<button class="primary" style="width:100%;margin-top:18px" onclick="go('builder')">＋ Planejar um look</button>
+</section>
+<section class="page" id="wishlist">
+<div class="topline"><div><div class="eyebrow">PRÓXIMAS AQUISIÇÕES</div><h1>Lista de compras</h1></div><button class="primary" onclick="openItemModal('wishlist')">＋ Adicionar</button></div>
+<p style="margin-bottom:12px">Planeje antes de comprar. Experimente combinações com as peças que você deseja.</p><input class="search-box" id="wishlistSearch" type="search" placeholder="Buscar na lista de compras..." aria-label="Buscar lista de compras"><div class="grid" id="wishlistGrid"></div>
+</section>
+</main>
+<nav class="nav">
+<button class="active" data-page="home" onclick="go('home')"><b>⌂</b>Início</button>
+<button data-page="wardrobe" onclick="go('wardrobe')"><b>♧</b>Roupas</button>
+<button data-page="builder" onclick="go('builder')"><b>＋</b>Montar</button>
+<button data-page="week" onclick="go('week')"><b>▦</b>Semana</button>
+<button data-page="wishlist" onclick="go('wishlist')"><b>♡</b>Compras</button>
+</nav>
+</div>
+<div class="modal-backdrop" id="itemModal" onclick="if(event.target===this)closeItemModal()">
+<div class="modal"><div class="modal-head"><div><div class="eyebrow">SEU ACERVO</div><h2 id="modalTitle">Adicionar peça</h2></div><button class="close" onclick="closeItemModal()">×</button></div>
+<div class="form-row"><label for="itemName">Nome da peça</label><input id="itemName" placeholder="Ex.: Polo preta"></div>
+<div class="form-row"><label>Foto da peça</label><label class="photo-button" for="itemPhotoInput">📷 Tirar foto ou escolher da galeria</label><input class="photo-input" id="itemPhotoInput" type="file" accept="image/*" capture="environment"><img id="photoPreview" class="photo-preview" alt="Prévia da foto selecionada"><p style="margin-top:7px">A imagem será otimizada para economizar espaço no aparelho.</p></div>
+<div class="form-row"><label for="itemCategory">Categoria</label><select id="itemCategory"><option value="Camisas">Camisas</option><option value="Calças e shorts">Calças e shorts</option><option value="Calçados">Calçados</option><option value="Acessórios">Acessórios</option><option value="Casacos">Casacos</option><option value="Outros">Outros</option></select></div>
+<div class="form-row"><label for="itemColor">Cor</label><input id="itemColor" placeholder="Ex.: Preto"></div>
+<div class="form-row"><label for="itemEmoji">Ícone provisório</label><select id="itemEmoji"><option value="👕">👕 Camisa</option><option value="👖">👖 Calça / short</option><option value="👟">👟 Calçado</option><option value="🧥">🧥 Casaco</option><option value="⌚">⌚ Acessório</option><option value="🧢">🧢 Boné</option><option value="🩳">🩳 Short</option><option value="👔">👔 Camisa social</option></select></div>
+<div class="form-row"><label for="itemPrice">Preço (opcional)</label><input id="itemPrice" type="number" min="0" step="0.01" placeholder="0,00"></div>
+<div class="form-row"><label for="itemStatus">Situação</label><select id="itemStatus"><option value="owned">Já tenho</option><option value="wishlist">Quero comprar</option></select></div>
+<div class="modal-actions"><button class="secondary" onclick="closeItemModal()">Cancelar</button><button class="primary" onclick="saveItem()">Salvar peça</button></div>
+</div></div>
+
+<div class="modal-backdrop" id="cloudModal" onclick="if(event.target===this)closeCloudModal()">
+<div class="modal">
+  <div class="modal-head"><div><div class="eyebrow">SEUS DADOS</div><h2>Conta e sincronização</h2></div><button class="close" onclick="closeCloudModal()">×</button></div>
+  <div class="notice">O Veste continua funcionando sem conta. Configure um projeto Supabase para ativar login e sincronização entre dispositivos.</div>
+  <div class="form-row"><label for="cloudUrl">Supabase Project URL</label><input id="cloudUrl" placeholder="https://seuprojeto.supabase.co" autocomplete="url"></div>
+  <div class="form-row"><label for="cloudKey">Supabase publishable/anon key</label><input id="cloudKey" placeholder="sb_publishable_... ou chave anon" autocomplete="off"></div>
+  <button class="secondary" style="width:100%;margin-bottom:14px" onclick="saveCloudConfig()">Salvar configuração</button>
+  <div class="form-row"><label for="cloudEmail">E-mail</label><input id="cloudEmail" type="email" placeholder="voce@exemplo.com" autocomplete="email"></div>
+  <div class="form-row"><label for="cloudPassword">Senha</label><input id="cloudPassword" type="password" placeholder="Mínimo recomendado: 12 caracteres" autocomplete="current-password"></div>
+  <div class="modal-actions"><button class="secondary" onclick="signUpCloud()">Criar conta</button><button class="primary" onclick="signInCloud()">Entrar</button></div>
+  <p id="cloudStatus" style="margin:12px 0"></p>
+  <div class="notice" id="cloudSessionNotice">Você ainda não entrou em uma conta.</div>
+  <div class="modal-actions"><button class="secondary" onclick="downloadCloudData()">Baixar dados da nuvem</button><button class="primary" onclick="uploadCloudData()">Enviar dados à nuvem</button></div>
+  <button class="secondary" style="width:100%;margin-top:9px" onclick="signOutCloud()">Sair da conta</button>
+  <p style="margin-top:12px;font-size:11px">Atenção: enviar dados substitui o backup da nuvem desta conta. Baixar dados substitui o conteúdo local atual. Exporte um backup JSON antes de sincronizar pela primeira vez.</p>
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const KEY='veste_mvp_v1';
+const seed={
+ items:[
+ {id:'s1',name:'Polo preta',category:'Camisas',color:'Preto',emoji:'👕',status:'owned'},
+ {id:'s2',name:'Jeans claro',category:'Calças e shorts',color:'Azul claro',emoji:'👖',status:'owned'},
+ {id:'s3',name:'Tênis branco',category:'Calçados',color:'Branco',emoji:'👟',status:'owned'},
+ {id:'s4',name:'Short esportivo',category:'Calças e shorts',color:'Preto',emoji:'🩳',status:'owned'},
+ {id:'s5',name:'Polo verde',category:'Camisas',color:'Verde',emoji:'👕',status:'wishlist'},
+ {id:'s6',name:'Sapatênis preto',category:'Calçados',color:'Preto',emoji:'👟',status:'wishlist'}
+ ],looks:[]};
+let data=load(), activeFilter='Todas', weekDay='Segunda', slotSelections={}, wardrobeQuery='', wishlistQuery='', deferredInstallPrompt=null;
+let cloudClient=null, cloudUser=null;
+const CLOUD_CONFIG_KEY='veste_cloud_config_v1';
+function getCloudConfig(){try{return JSON.parse(localStorage.getItem(CLOUD_CONFIG_KEY))||{url:'',key:''}}catch{return {url:'',key:''}}}
+function setCloudStatus(message){const el=document.getElementById('cloudStatus');if(el)el.textContent=message}
+function initCloudClient(){const cfg=getCloudConfig();cloudClient=null;cloudUser=null;if(cfg.url&&cfg.key&&window.supabase?.createClient){try{cloudClient=window.supabase.createClient(cfg.url,cfg.key);cloudClient.auth.getSession().then(({data,error})=>{if(error){setCloudStatus('Não foi possível verificar a sessão.');return}cloudUser=data.session?.user||null;updateCloudUI()})}catch(e){setCloudStatus('Configuração inválida. Confira URL e chave.')}}updateCloudUI()}
+function openCloudModal(){const cfg=getCloudConfig();document.getElementById('cloudUrl').value=cfg.url||'';document.getElementById('cloudKey').value=cfg.key||'';document.getElementById('cloudModal').classList.add('show');updateCloudUI()}
+function closeCloudModal(){document.getElementById('cloudModal').classList.remove('show')}
+function updateCloudUI(){const el=document.getElementById('cloudSessionNotice');if(el)el.textContent=cloudUser?`Conectado como ${cloudUser.email||'usuário autenticado'}. Seus dados locais não são enviados automaticamente.`:'Você ainda não entrou em uma conta.'}
+function saveCloudConfig(){const url=document.getElementById('cloudUrl').value.trim().replace(/\/$/,'');const key=document.getElementById('cloudKey').value.trim();if(url&&(!/^https:\/\/[a-zA-Z0-9.-]+$/.test(url)||!key)){setCloudStatus('Informe uma URL HTTPS válida e a chave pública do projeto.');return}localStorage.setItem(CLOUD_CONFIG_KEY,JSON.stringify({url,key}));initCloudClient();setCloudStatus(url?'Configuração salva neste navegador. Agora crie uma conta ou entre.':'Configuração removida. O Veste seguirá no modo local.')}
+async function signUpCloud(){if(!cloudClient){setCloudStatus('Salve primeiro a URL e a chave do Supabase.');return}const email=document.getElementById('cloudEmail').value.trim(),password=document.getElementById('cloudPassword').value;if(!email||password.length<8){setCloudStatus('Informe um e-mail e uma senha com pelo menos 8 caracteres.');return}setCloudStatus('Criando conta…');const {data,error}=await cloudClient.auth.signUp({email,password});if(error){setCloudStatus('Erro ao criar conta: '+error.message);return}cloudUser=data.user||null;updateCloudUI();setCloudStatus(data.session?'Conta criada e conectada.':'Conta criada. Confira seu e-mail para confirmar o cadastro, se solicitado.')}
+async function signInCloud(){if(!cloudClient){setCloudStatus('Salve primeiro a URL e a chave do Supabase.');return}const email=document.getElementById('cloudEmail').value.trim(),password=document.getElementById('cloudPassword').value;if(!email||!password){setCloudStatus('Informe e-mail e senha.');return}setCloudStatus('Entrando…');const {data,error}=await cloudClient.auth.signInWithPassword({email,password});if(error){setCloudStatus('Não foi possível entrar: '+error.message);return}cloudUser=data.user;updateCloudUI();setCloudStatus('Login realizado. Escolha enviar ou baixar os dados para sincronizar.')}
+async function signOutCloud(){if(!cloudClient){setCloudStatus('Não há conexão configurada.');return}const {error}=await cloudClient.auth.signOut();if(error){setCloudStatus('Erro ao sair: '+error.message);return}cloudUser=null;updateCloudUI();setCloudStatus('Você saiu da conta. Seus dados locais continuam neste navegador.')}
+async function uploadCloudData(){if(!cloudClient||!cloudUser){setCloudStatus('Configure o Supabase e entre antes de sincronizar.');return}if(!confirm('Enviar o guarda-roupa e os looks deste navegador para a nuvem? Isso substituirá os dados já salvos nesta conta. Exporte um backup antes de continuar.'))return;setCloudStatus('Enviando dados…');const row={user_id:cloudUser.id,data,updated_at:new Date().toISOString()};const {error}=await cloudClient.from('wardrobe_data').upsert(row,{onConflict:'user_id'});if(error){setCloudStatus('Falha ao enviar: '+error.message+' — confira se executou o SQL de configuração.');return}setCloudStatus('Dados enviados para a nuvem com sucesso.')}
+async function downloadCloudData(){if(!cloudClient||!cloudUser){setCloudStatus('Configure o Supabase e entre antes de sincronizar.');return}if(!confirm('Baixar os dados da nuvem e substituir as roupas e looks deste navegador? Exporte um backup local antes de continuar.'))return;setCloudStatus('Buscando dados…');const {data:row,error}=await cloudClient.from('wardrobe_data').select('data,updated_at').eq('user_id',cloudUser.id).maybeSingle();if(error){setCloudStatus('Falha ao baixar: '+error.message+' — confira se executou o SQL de configuração.');return}if(!row){setCloudStatus('Ainda não há dados na nuvem para esta conta. Use “Enviar dados à nuvem” neste dispositivo primeiro.');return}if(!row.data||!Array.isArray(row.data.items)||!Array.isArray(row.data.looks)){setCloudStatus('Os dados remotos estão em formato inválido.');return}data={items:row.data.items,looks:row.data.looks};try{persist();setCloudStatus('Dados baixados. Última atualização: '+new Date(row.updated_at).toLocaleString('pt-BR'))}catch(e){setCloudStatus('Não foi possível salvar os dados baixados neste aparelho.')}
+}
+const cats=['Todas','Camisas','Calças e shorts','Calçados','Acessórios','Casacos','Outros'];
+const days=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+const dayShort=['SEG','TER','QUA','QUI','SEX','SÁB','DOM'];
+const slots=[{key:'top',label:'Parte de cima',emoji:'👕',cats:['Camisas','Casacos','Outros']},{key:'bottom',label:'Parte de baixo',emoji:'👖',cats:['Calças e shorts']},{key:'shoes',label:'Calçado',emoji:'👟',cats:['Calçados']},{key:'accessory',label:'Acessório',emoji:'⌚',cats:['Acessórios']}];
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||structuredClone(seed)}catch{return structuredClone(seed)}}
+function persist(){localStorage.setItem(KEY,JSON.stringify(data));renderAll()}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));if(id==='builder')renderBuilder();window.scrollTo({top:0,behavior:'smooth'})}
+let editingItemId=null;
+function openItemModal(status){editingItemId=null;document.getElementById('itemModal').classList.add('show');document.getElementById('itemStatus').value=status||'owned';document.getElementById('itemName').value='';document.getElementById('itemColor').value='';document.getElementById('itemPrice').value='';document.getElementById('itemCategory').value='Camisas';document.getElementById('itemEmoji').value='👕';document.getElementById('itemPhotoInput').value='';document.getElementById('photoPreview').src='';document.getElementById('photoPreview').style.display='none';pendingPhoto='';document.getElementById('modalTitle').textContent=status==='wishlist'?'Adicionar à lista de compras':'Adicionar peça'} 
+function editItem(id){const i=data.items.find(x=>x.id===id);if(!i)return;editingItemId=id;pendingPhoto=i.photo||'';document.getElementById('itemModal').classList.add('show');document.getElementById('modalTitle').textContent='Editar peça';document.getElementById('itemName').value=i.name||'';document.getElementById('itemCategory').value=i.category||'Outros';document.getElementById('itemColor').value=i.color||'';document.getElementById('itemEmoji').value=i.emoji||'👕';document.getElementById('itemPrice').value=i.price||'';document.getElementById('itemStatus').value=i.status||'owned';document.getElementById('itemPhotoInput').value='';const p=document.getElementById('photoPreview');p.src=pendingPhoto;p.style.display=pendingPhoto?'block':'none'}
+function closeItemModal(){document.getElementById('itemModal').classList.remove('show');editingItemId=null}
+let pendingPhoto='';
+document.getElementById('itemPhotoInput').addEventListener('change', async function(){
+  const file=this.files&&this.files[0]; if(!file)return;
+  if(!file.type.startsWith('image/')){alert('Selecione um arquivo de imagem.');this.value='';return}
+  try{
+    pendingPhoto=await optimizeImage(file);
+    const preview=document.getElementById('photoPreview');preview.src=pendingPhoto;preview.style.display='block';
+  }catch(e){alert('Não foi possível carregar essa imagem. Tente outra foto.');}
+});
+function optimizeImage(file){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onerror=reject;
+    reader.onload=()=>{
+      const img=new Image();img.onerror=reject;
+      img.onload=()=>{
+        const max=700,scale=Math.min(1,max/Math.max(img.width,img.height));
+        const canvas=document.createElement('canvas');canvas.width=Math.round(img.width*scale);canvas.height=Math.round(img.height*scale);
+        const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,canvas.width,canvas.height);
+        resolve(canvas.toDataURL('image/jpeg',0.78));
+      };img.src=reader.result;
+    };reader.readAsDataURL(file);
+  });
+}
+function saveItem(){const name=document.getElementById('itemName').value.trim();if(!name){alert('Dê um nome para a peça.');return}
+  const existing=editingItemId?data.items.find(i=>i.id===editingItemId):null;
+  const record={...(existing||{}),id:existing?existing.id:'i'+Date.now(),name,category:document.getElementById('itemCategory').value,color:document.getElementById('itemColor').value.trim(),emoji:document.getElementById('itemEmoji').value,status:document.getElementById('itemStatus').value,price:Number(document.getElementById('itemPrice').value)||0,photo:pendingPhoto||''};
+  if(existing){Object.assign(existing,record)}else{data.items.push(record)}
+  closeItemModal();editingItemId=null;try{persist()}catch(e){alert('O navegador ficou sem espaço para salvar. Exporte um backup e tente remover fotos grandes.');}
+}
+function removeItem(id){if(confirm('Remover esta peça?')){data.items=data.items.filter(i=>i.id!==id);Object.keys(slotSelections).forEach(k=>{if(slotSelections[k]===id)slotSelections[k]=''});persist()}}
+function moveItem(id){const item=data.items.find(i=>i.id===id);if(item){item.status=item.status==='owned'?'wishlist':'owned';persist()}}
+function setFilter(f){activeFilter=f;renderWardrobe()}
+function itemCard(i){return `<article class="item"><div class="item-visual"><span class="status">${i.status==='owned'?'NO ARMÁRIO':'DESEJO'}</span>${i.photo?`<img class="item-photo" src="${i.photo}" alt="${esc(i.name)}">`:(i.emoji||'👕')}</div><strong>${esc(i.name)}</strong><small>${esc(i.category)}${i.color?' · '+esc(i.color):''}</small><div class="item-actions"><button onclick="editItem('${i.id}')">Editar</button><button onclick="moveItem('${i.id}')">${i.status==='owned'?'Para compras':'Já comprei'}</button><button onclick="removeItem('${i.id}')">Excluir</button></div></article>`}
+function renderWardrobe(){
+  document.getElementById('wardrobeFilters').innerHTML=cats.map(c=>`<button class="filter ${activeFilter===c?'active':''}" onclick="setFilter('${c}')">${c}</button>`).join('');
+  const q=wardrobeQuery.trim().toLocaleLowerCase('pt-BR');
+  const arr=data.items.filter(i=>i.status==='owned'&&(activeFilter==='Todas'||i.category===activeFilter)&&(!q||[i.name,i.category,i.color].some(v=>String(v||'').toLocaleLowerCase('pt-BR').includes(q))));
+  document.getElementById('wardrobeCount').textContent=data.items.filter(i=>i.status==='owned').length;
+  const total=data.items.filter(i=>i.status==='owned').reduce((sum,i)=>sum+(Number(i.price)||0),0);
+  document.getElementById('wardrobeValue').textContent=total.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+  document.getElementById('wardrobeGrid').innerHTML=arr.length?arr.map(itemCard).join(''):`<div class="empty"><div class="emoji">👕</div><strong>${q?'Nenhuma peça encontrada':'Nenhuma peça por aqui'}</strong>${q?'Tente buscar por outro nome, cor ou categoria.':'Adicione roupas para começar a montar seus looks.'}</div>`;
+}
+function renderWishlist(){
+  const q=wishlistQuery.trim().toLocaleLowerCase('pt-BR');
+  const arr=data.items.filter(i=>i.status==='wishlist'&&(!q||[i.name,i.category,i.color].some(v=>String(v||'').toLocaleLowerCase('pt-BR').includes(q))));
+  document.getElementById('wishlistGrid').innerHTML=arr.length?arr.map(itemCard).join(''):`<div class="empty"><div class="emoji">♡</div><strong>${q?'Nenhuma peça encontrada':'Sua lista está vazia'}</strong>${q?'Tente outra busca.':'Adicione peças que deseja comprar e teste combinações futuras.'}</div>`;
+}
+function dayButtons(id){document.getElementById(id).innerHTML=days.map((d,i)=>`<button class="day ${weekDay===d?'active':''} ${data.looks.some(l=>l.day===d)?'has':''}" onclick="selectDay('${d}')"><strong>${dayShort[i]}</strong><span></span></button>`).join('')}
+function selectDay(d){weekDay=d;dayButtons('homeDays');dayButtons('weekDays');renderHomeLook();renderWeek()}
+function lookDescription(l){return (l.itemIds||[]).map(id=>data.items.find(i=>i.id===id)).filter(Boolean).map(i=>i.name).join(' + ')||'Sem peças vinculadas'}
+function lookCard(l){const its=(l.itemIds||[]).map(id=>data.items.find(i=>i.id===id)).filter(Boolean).slice(0,3);const visual=its.length?its.map(i=>i.photo?`<img src="${i.photo}" alt="${esc(i.name)}">`:i.emoji||'👕').join(' '):'👔';return `<div class="look-card"><div class="look-preview">${its.some(i=>i.photo)?visual:`<div class="mini-emojis">${visual}</div>`}</div><div class="look-info"><strong>${esc(l.name||'Meu look')}</strong><p>${esc(lookDescription(l))}</p><span class="pill">${esc(l.occasion||'Casual')}</span></div><button class="text-button" onclick="deleteLook('${l.id}')">Excluir</button></div>`}
+function renderHomeLook(){let l=data.looks.find(x=>x.day===weekDay);document.getElementById('homeLook').innerHTML=l?lookCard(l):`<div class="empty"><div class="emoji">＋</div><strong>Nenhum look para ${weekDay.toLowerCase()}</strong>Monte uma combinação e deixe seu dia planejado.<br><button class="text-button" onclick="go('builder')">Criar look →</button></div>`}
+function renderHome(){document.getElementById('statOwned').textContent=data.items.filter(i=>i.status==='owned').length;document.getElementById('statWishlist').textContent=data.items.filter(i=>i.status==='wishlist').length;dayButtons('homeDays');renderHomeLook()}
+function renderWeek(){dayButtons('weekDays');const arr=data.looks.filter(l=>l.day===weekDay);document.getElementById('weekList').innerHTML=arr.length?arr.map(lookCard).join(''):`<div class="empty"><div class="emoji">📅</div><strong>${weekDay} está livre</strong>Adicione um look para organizar este dia.</div>`}
+function renderBuilder(){const all=data.items;const preview=`<div class="builder-preview"><h2>Prévia da combinação</h2><div class="preview-pieces">${slots.map(s=>{const item=all.find(i=>i.id===slotSelections[s.key]);return `<div class="preview-piece"><div class="preview-image">${item?(item.photo?`<img src="${item.photo}" alt="${esc(item.name)}">`:item.emoji||s.emoji):s.emoji}</div><small>${item?esc(item.name):s.label}</small></div>`}).join('')}</div></div>`;document.getElementById('builderSlots').innerHTML=preview+slots.map(s=>{let options=all.filter(i=>s.cats.includes(i.category));return `<div class="slot"><span class="big">${s.emoji}</span><span>${s.label}</span><select aria-label="${s.label}" onchange="slotSelections['${s.key}']=this.value;renderBuilder()"><option value="">Selecionar peça</option>${options.map(i=>`<option value="${i.id}" ${slotSelections[s.key]===i.id?'selected':''}>${esc(i.name)}${i.status==='wishlist'?' · desejo':''}</option>`).join('')}</select></div>`}).join('')}
+function saveLook(){const itemIds=slots.map(s=>slotSelections[s.key]).filter(Boolean);if(!itemIds.length){alert('Selecione pelo menos uma peça para montar o look.');return}const name=document.getElementById('lookName').value.trim()||'Look '+document.getElementById('lookOccasion').value.toLowerCase();const day=document.getElementById('lookDay').value;data.looks=data.looks.filter(l=>l.day!==day);data.looks.push({id:'l'+Date.now(),name,occasion:document.getElementById('lookOccasion').value,day,itemIds,createdAt:new Date().toISOString()});slotSelections={};document.getElementById('lookName').value='';persist();go('week');selectDay(day)}
+function deleteLook(id){if(confirm('Excluir este look?')){data.looks=data.looks.filter(l=>l.id!==id);persist()}}
+function exportBackup(){
+  const payload={app:'Veste',version:5,exportedAt:new Date().toISOString(),data};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='veste-backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+}
+function importBackup(event){
+  const file=event.target.files&&event.target.files[0];if(!file)return;
+  const reader=new FileReader();reader.onload=()=>{
+    try{
+      const parsed=JSON.parse(reader.result);const incoming=parsed.data||parsed;
+      if(!incoming||!Array.isArray(incoming.items)||!Array.isArray(incoming.looks))throw new Error('Formato inválido');
+      if(!confirm('Importar este backup vai substituir as roupas e os looks atuais neste navegador. Deseja continuar?')){event.target.value='';return}
+      data={items:incoming.items,looks:incoming.looks};
+      try{persist();alert('Backup importado com sucesso.')}catch(e){alert('Não há espaço suficiente para importar todos os dados.');}
+    }catch(e){alert('Não foi possível importar. Selecione um backup JSON válido do Veste.')}
+    event.target.value='';
+  };reader.readAsText(file);
+}
+document.getElementById('wardrobeSearch').addEventListener('input',e=>{wardrobeQuery=e.target.value;renderWardrobe()});
+document.getElementById('wishlistSearch').addEventListener('input',e=>{wishlistQuery=e.target.value;renderWishlist()});
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstallPrompt=e;document.getElementById('installBar').classList.add('show')});
+window.addEventListener('appinstalled',()=>{document.getElementById('installBar').classList.remove('show');deferredInstallPrompt=null});
+async function installApp(){if(!deferredInstallPrompt){alert('No iPhone, use Compartilhar → Adicionar à Tela de Início. No Android, abra o menu do navegador e escolha Instalar aplicativo ou Adicionar à tela inicial.');return}deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;document.getElementById('installBar').classList.remove('show')}
+if('serviceWorker' in navigator && /^https?:$/.test(location.protocol)){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
+function renderAll(){renderHome();renderWardrobe();renderWishlist();renderWeek();if(document.getElementById('builder').classList.contains('active'))renderBuilder()}
+document.getElementById('todayLabel').textContent=new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'numeric',month:'long'}).format(new Date()).toUpperCase();
+renderAll();
+initCloudClient();
+</script>
+</body>
+</html>
